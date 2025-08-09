@@ -4,13 +4,27 @@
     "pages/example/index"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小程序示例",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "/images/icons/home.png",
+        "selectedIconPath": "/images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/example/index",
+        "text": "我的",
+        "iconPath": "/images/icons/usercenter.png",
+        "selectedIconPath": "/images/icons/usercenter-active.png"
+      }
+    ]
+  },
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents"
+  "sitemapLocation": "sitemap.json"
 }
