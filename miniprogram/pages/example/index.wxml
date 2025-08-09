@@ -1,5 +1,23 @@
 <!--pages/exampleDetail/index.wxml-->
-<block wx:if="{{ type === 'getOpenId' }}">
+<block wx:if="{{type === 'login'}}">
+  <view class="page-container">
+    <!-- 用户登录区域 -->
+    <view wx:if="{{!isLoggedIn}}" class="login-container">
+      <image class="avatar-placeholder" src="/images/avatar.png"></image>
+      <view class="login-text">未登录</view>
+      <button class="login-btn" open-type="getUserInfo" bind:getuserinfo="handleGetUserInfo">微信快捷登录</button>
+    </view>
+    
+    <!-- 用户信息区域 -->
+    <view wx:if="{{isLoggedIn}}" class="user-info-container">
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      <view class="nickname">{{userInfo.nickName}}</view>
+      <button class="logout-btn" bind:tap="handleLogout">退出登录</button>
+    </view>
+  </view>
+</block>
+
+<block wx:else>
   <view class="page-container">
     <view class="title">功能介绍</view>
     <view class="info">云函数无需维护鉴权机制及登录票据，仅一行代码即可获得。</view>

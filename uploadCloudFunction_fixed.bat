@@ -1,0 +1,1 @@
+"D:\DevProject\1A_Tools\wechat\微信web开发者工具\cli.bat" cloud functions deploy --e cloud1-5gt9856374de02bc --n quickstartFunctions --r --project "E:\richPet\newRichPet" --report_first --report

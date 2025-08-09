@@ -1,11 +1,78 @@
 page {
-  background-color: white;
   padding-bottom: 50px;
   font-family: PingFang SC;
 }
 
 .page-container {
   padding: 20rpx 40rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+  background-color: white;
+  border-radius: 16rpx;
+  margin: 30rpx 0;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.avatar-placeholder {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  margin-bottom: 30rpx;
+}
+
+.login-text {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 40rpx;
+}
+
+.login-btn {
+  background-color: #07c160;
+  color: white;
+  width: 60%;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+  background-color: white;
+  border-radius: 16rpx;
+  margin: 30rpx 0;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  border: 4rpx solid #f0f0f0;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40rpx;
+}
+
+.logout-btn {
+  background-color: #f8f8f8;
+  color: #666;
+  width: 60%;
+  border-radius: 40rpx;
+  font-size: 32rpx;
 }
 
 .tip {

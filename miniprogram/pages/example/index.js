@@ -1,6 +1,8 @@
 // pages/exampleDetail/index.js
 Page({
   data: {
+    isLoggedIn: false,
+    userInfo: null,
     type: "",
     envId: "",
     showTip: false,
@@ -72,19 +74,20 @@ Page({
   },
 
   onLoad(options) {
-    console.log("options", options);
-    if (
-      options.type === "cloudbaserunfunction" ||
-      options.type === "cloudbaserun"
-    ) {
-      this.getCallcbrCode();
+    // 检查是否有登录状态
+    const userInfo = wx.getStorageSync('userInfo');
+    if (userInfo) {
+      this.setData({
+        isLoggedIn: true,
+        userInfo: userInfo
+      });
     }
-    if (options.type === "getOpenId") {
-      this.getOpenIdCode();
-    }
-    if (options.type === "getMiniProgramCode") {
-      this.getMiniProgramCode();
-    }
+    
+    console.log('options', options);
+    // 默认设置为登录页面
+    this.setData({
+      type: 'login'
+    });
 
     if (options.type === "createCollection") {
       this.getCreateCollectionCode();
@@ -96,6 +99,68 @@ Page({
     this.setData({ type: options?.type, envId: options?.envId });
   },
 
+  // 处理微信快捷登录
+  handleGetUserInfo(e) {
+    if (e.detail.userInfo) {
+      // 用户同意授权
+      const userInfo = e.detail.userInfo;
+      
+      // 调用云函数获取openid
+      wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'getOpenId'
+        }
+      }).then(res => {
+        console.log('openid获取成功', res.result);
+        // 存储用户信息和openid
+        userInfo.openid = res.result.openid;
+        wx.setStorageSync('userInfo', userInfo);
+        
+        this.setData({
+          isLoggedIn: true,
+          userInfo: userInfo
+        });
+      }).catch(err => {
+        console.error('openid获取失败', err);
+        wx.showToast({
+          title: '登录失败',
+          icon: 'none'
+        });
+      });
+    } else {
+      // 用户拒绝授权
+      wx.showToast({
+        title: '请授权后登录',
+        icon: 'none'
+      });
+    }
+  },
+  
+  // 处理退出登录
+  handleLogout() {
+    wx.showModal({
+      title: '确认退出',
+      content: '确定要退出登录吗？',
+      success: res => {
+        if (res.confirm) {
+          // 清除本地存储
+          wx.removeStorageSync('userInfo');
+          
+          this.setData({
+            isLoggedIn: false,
+            userInfo: null
+          });
+          
+          wx.showToast({
+            title: '已退出登录',
+            icon: 'none'
+          });
+        }
+      }
+    });
+  },
+  
   copyUrl() {
     wx.setClipboardData({
       data: "https://gitee.com/TencentCloudBase/cloudbase-agent-ui/tree/main/apps/miniprogram-agent-ui/miniprogram/components/agent-ui",
